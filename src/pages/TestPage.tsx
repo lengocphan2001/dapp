@@ -8,6 +8,7 @@ const TestPage: React.FC = () => {
   const { login, isAuthenticated } = useAuth();
   const [telegramUser, setTelegramUser] = useState<any>(null);
   const [debugInfo, setDebugInfo] = useState<any>({});
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   useEffect(() => {
     const updateDebugInfo = () => {
@@ -29,17 +30,34 @@ const TestPage: React.FC = () => {
   }, []);
 
   const handleManualLogin = async () => {
-    if (telegramUser) {
+    console.log('Manual login triggered with user:', telegramUser);
+    
+    if (telegramUser && !isLoggingIn) {
+      setIsLoggingIn(true);
       try {
+        console.log('Calling login function...');
         await login(telegramUser);
+        console.log('Login completed, navigating to dashboard...');
         navigate('/dashboard');
       } catch (error) {
         console.error('Manual login failed:', error);
+        alert('Login failed: ' + error);
+      } finally {
+        setIsLoggingIn(false);
       }
+    } else if (!telegramUser) {
+      console.log('No Telegram user data available');
+      alert('No Telegram user data available');
     }
   };
 
   const handleDemoLogin = async () => {
+    console.log('Demo login triggered');
+    
+    if (isLoggingIn) return;
+    
+    setIsLoggingIn(true);
+    
     const demoUser = {
       id: 123456789,
       first_name: 'Demo',
@@ -51,10 +69,15 @@ const TestPage: React.FC = () => {
     };
     
     try {
+      console.log('Calling login function with demo user...');
       await login(demoUser);
+      console.log('Demo login completed, navigating to dashboard...');
       navigate('/dashboard');
     } catch (error) {
       console.error('Demo login failed:', error);
+      alert('Demo login failed: ' + error);
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -103,31 +126,32 @@ const TestPage: React.FC = () => {
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <button 
             onClick={handleManualLogin}
-            disabled={!telegramUser}
+            disabled={!telegramUser || isLoggingIn}
             style={{
-              backgroundColor: telegramUser ? '#667eea' : '#ccc',
+              backgroundColor: telegramUser && !isLoggingIn ? '#667eea' : '#ccc',
               color: 'white',
               border: 'none',
               padding: '10px 20px',
               borderRadius: '5px',
-              cursor: telegramUser ? 'pointer' : 'not-allowed'
+              cursor: telegramUser && !isLoggingIn ? 'pointer' : 'not-allowed'
             }}
           >
-            Login with Telegram Data
+            {isLoggingIn ? 'Logging in...' : 'Login with Telegram Data'}
           </button>
           
           <button 
             onClick={handleDemoLogin}
+            disabled={isLoggingIn}
             style={{
-              backgroundColor: '#28a745',
+              backgroundColor: isLoggingIn ? '#ccc' : '#28a745',
               color: 'white',
               border: 'none',
               padding: '10px 20px',
               borderRadius: '5px',
-              cursor: 'pointer'
+              cursor: isLoggingIn ? 'not-allowed' : 'pointer'
             }}
           >
-            Demo Login
+            {isLoggingIn ? 'Logging in...' : 'Demo Login'}
           </button>
         </div>
       </div>

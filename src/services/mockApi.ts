@@ -35,11 +35,14 @@ export const mockAuthService = {
   authenticateWithTelegram: async (telegramUser: TelegramUser): Promise<ApiResponse<User>> => {
     await delay(1000); // Simulate network delay
     
+    console.log('Mock auth service: authenticating user:', telegramUser);
+    
     const existingUser = users.find(u => u.telegramId === telegramUser.id);
     
     if (existingUser) {
       // Update last login
       existingUser.lastLoginAt = new Date();
+      console.log('Mock auth service: existing user found, logging in');
       return {
         success: true,
         data: existingUser,
@@ -47,9 +50,28 @@ export const mockAuthService = {
       };
     }
     
+    // Auto-register new users
+    console.log('Mock auth service: user not found, auto-registering');
+    const newUser: User = {
+      id: Date.now().toString(),
+      telegramId: telegramUser.id,
+      username: telegramUser.username || `user_${telegramUser.id}`,
+      firstName: telegramUser.first_name,
+      lastName: telegramUser.last_name,
+      photoUrl: telegramUser.photo_url,
+      role: 'user',
+      isActive: true,
+      createdAt: new Date(),
+      lastLoginAt: new Date(),
+    };
+    
+    users.push(newUser);
+    console.log('Mock auth service: new user created:', newUser);
+    
     return {
-      success: false,
-      error: 'User not found. Please register first.',
+      success: true,
+      data: newUser,
+      message: 'Registration and login successful',
     };
   },
 
