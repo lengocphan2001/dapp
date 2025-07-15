@@ -1,355 +1,269 @@
 .login-container {
   min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 .login-card {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
   padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
   max-width: 400px;
   text-align: center;
 }
 
 .login-header {
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
-.logo {
-  margin-bottom: 20px;
-}
-
-.telegram-icon {
-  width: 60px;
-  height: 60px;
-  color: #0088cc;
-}
-
-.login-header h1 {
-  margin: 0 0 10px 0;
-  color: #333;
-  font-size: 28px;
-  font-weight: 700;
-}
-
-.login-header p {
-  margin: 0;
-  color: #666;
-  font-size: 16px;
-}
-
-.error-message {
-  background: #fee;
-  border: 1px solid #fcc;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 20px;
-  color: #c33;
-  font-size: 14px;
-}
-
-.login-options {
-  margin-bottom: 30px;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.user-avatar {
+.login-logo {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #0088cc;
-}
-
-.user-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.avatar-placeholder {
-  width: 100%;
-  height: 100%;
-  background: #0088cc;
-  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto 20px;
+  color: white;
   font-size: 32px;
   font-weight: bold;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
-.user-details h3 {
-  margin: 0 0 5px 0;
-  color: #333;
-  font-size: 18px;
+.login-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 8px;
 }
 
-.user-details p {
-  margin: 0;
-  color: #666;
+.login-subtitle {
+  font-size: 16px;
+  color: #718096;
+  font-weight: 400;
+}
+
+.login-form {
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-label {
+  display: block;
   font-size: 14px;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .login-button {
   width: 100%;
-  padding: 15px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   border: none;
+  padding: 16px 24px;
   border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  text-decoration: none;
+  gap: 12px;
 }
 
-.telegram-notice {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.notice-icon {
-  font-size: 32px;
-  margin-bottom: 12px;
-}
-
-.telegram-notice h3 {
-  margin: 0 0 8px 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-}
-
-.telegram-notice p {
-  margin: 0;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
-}
-
-.login-button.telegram {
-  background: #0088cc;
-  color: white;
-}
-
-.login-button.telegram:hover:not(.disabled) {
-  background: #0077b3;
+.login-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 136, 204, 0.3);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
-.login-button.telegram.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-  background: #e9ecef;
-  color: #6c757d;
-}
-
-.login-button.demo {
-  background: #6c757d;
-  color: white;
-}
-
-.login-button.demo:hover {
-  background: #5a6268;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(108, 117, 125, 0.3);
+.login-button:active {
+  transform: translateY(0);
 }
 
 .login-button:disabled {
-  opacity: 0.6;
+  background: #cbd5e0;
   cursor: not-allowed;
   transform: none;
-}
-
-.button-icon {
-  width: 20px;
-  height: 20px;
-}
-
-.demo-section {
-  margin-top: 20px;
-  padding: 20px;
-  border: 2px solid #e9ecef;
-  border-radius: 12px;
-  background: #f8f9fa;
-}
-
-.demo-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.demo-header h3 {
-  margin: 0 0 8px 0;
-  color: #333;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.demo-header p {
-  margin: 0;
-  color: #666;
-  font-size: 14px;
+  box-shadow: none;
 }
 
 .demo-buttons {
   display: flex;
   gap: 12px;
-  margin-bottom: 15px;
+  margin-bottom: 24px;
 }
 
-.demo-buttons .login-button {
+.demo-button {
   flex: 1;
-}
-
-.login-button.demo.admin {
-  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-  color: white;
-  font-weight: 600;
-  padding: 16px 24px;
-  font-size: 16px;
-}
-
-.login-button.demo.admin:hover {
-  background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
-}
-
-.demo-features {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 15px;
-  font-size: 12px;
-  color: #666;
-}
-
-.demo-features span {
+  background: #f8f9fa;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 }
 
-.login-button.demo.primary {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+.demo-button:hover {
+  background: #667eea;
   color: white;
-  font-weight: 600;
-  padding: 16px 24px;
-  font-size: 16px;
-}
-
-.login-button.demo.primary:hover {
-  background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
 }
 
-.mode-toggle {
+.demo-button.admin {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.demo-button.admin:hover {
+  background: #ff6b6b;
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+}
+
+.login-divider {
   display: flex;
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 4px;
-  margin-bottom: 20px;
+  align-items: center;
+  margin: 24px 0;
+  color: #a0aec0;
+  font-size: 14px;
 }
 
-.toggle-button {
+.login-divider::before,
+.login-divider::after {
+  content: '';
   flex: 1;
-  padding: 12px;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.login-divider::before {
+  margin-right: 16px;
+}
+
+.login-divider::after {
+  margin-left: 16px;
+}
+
+.telegram-login {
+  width: 100%;
+  background: #0088cc;
+  color: white;
   border: none;
-  background: transparent;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-decoration: none;
 }
 
-.toggle-button.active {
-  background: white;
-  color: #0088cc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.telegram-login:hover {
+  background: #0077b3;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 136, 204, 0.3);
 }
 
 .login-footer {
-  color: #999;
-  font-size: 12px;
-  line-height: 1.4;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+  color: #718096;
+  font-size: 14px;
 }
 
-.login-footer p {
-  margin: 0 0 8px 0;
+.login-footer a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-.login-footer p:last-child {
-  margin-bottom: 0;
+.login-footer a:hover {
+  text-decoration: underline;
 }
 
-.loading-spinner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
+.error-message {
+  background: rgba(255, 107, 107, 0.1);
+  color: #dc3545;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 107, 107, 0.2);
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #0088cc;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.success-message {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(40, 167, 69, 0.2);
 }
 
 /* Responsive design */
 @media (max-width: 480px) {
+  .login-container {
+    padding: 16px;
+  }
+  
   .login-card {
-    padding: 30px 20px;
-    margin: 10px;
+    padding: 32px 24px;
   }
   
-  .login-header h1 {
+  .login-title {
     font-size: 24px;
   }
   
-  .user-avatar {
-    width: 60px;
-    height: 60px;
+  .demo-buttons {
+    flex-direction: column;
   }
   
-  .avatar-placeholder {
-    font-size: 24px;
+  .demo-button {
+    width: 100%;
   }
 } 
