@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './components/AuthContext';
 import { Web3Provider } from './components/Web3Context';
 import ProtectedRoute from './components/ProtectedRoute';
-import TelegramDebug from './components/TelegramDebug';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import DeFiDashboardPage from './pages/DeFiDashboardPage';
@@ -18,9 +17,6 @@ function App() {
       <Web3Provider>
         <Router>
           <div className="App">
-            {/* Temporary debug component - remove in production */}
-            <TelegramDebug />
-            
             <Routes>
               <Route path="/test" element={<TestPage />} />
               <Route path="/login" element={
