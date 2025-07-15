@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
+import TelegramProfile from '../components/TelegramProfile';
 import './DashboardPage.css';
 
 const DashboardPage: React.FC = () => {
@@ -49,6 +50,9 @@ const DashboardPage: React.FC = () => {
       </header>
 
       <main className="dashboard-main">
+        {/* Show Telegram profile if authenticated via Telegram */}
+        <TelegramProfile />
+        
         <div className="dashboard-grid">
           <div className="dashboard-card">
             <div className="card-icon">

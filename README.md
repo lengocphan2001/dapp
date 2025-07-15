@@ -1,11 +1,12 @@
 # Telegram DApp - User Management System
 
-A modern React TypeScript application that provides Telegram authentication and comprehensive user management with admin capabilities.
+A modern React TypeScript application that provides Telegram Web App authentication and comprehensive user management with admin capabilities. **Now with seamless Telegram Web App integration - users can access the app directly from Telegram without any login process, just like the Telegram Wallet app!**
 
 ## Features
 
 ### 🔐 Authentication
-- **Telegram Login/Register**: Seamless authentication using Telegram Web App
+- **Telegram Web App Authentication**: Seamless authentication using Telegram Web App - no login required!
+- **Automatic Login**: Users are automatically authenticated when opening from Telegram
 - **Demo Mode**: Test the application without actual Telegram integration
 - **Session Management**: Persistent login sessions with token-based authentication
 - **Role-based Access Control**: User and Admin roles with different permissions
@@ -64,7 +65,8 @@ src/
 ├── components/          # Reusable React components
 │   ├── AuthContext.tsx  # Authentication context provider
 │   ├── Web3Context.tsx  # Web3 wallet context provider
-│   └── ProtectedRoute.tsx # Route protection component
+│   ├── ProtectedRoute.tsx # Route protection component
+│   └── TelegramProfile.tsx # Telegram user profile component
 ├── pages/              # Page components
 │   ├── LoginPage.tsx    # Login/Register page
 │   ├── DashboardPage.tsx # User dashboard
@@ -91,6 +93,7 @@ src/
 
 - Node.js (version 16 or higher)
 - npm or yarn package manager
+- A Telegram Bot (for full integration)
 
 ### Installation
 
@@ -121,37 +124,61 @@ The application includes a demo mode that allows you to test all features withou
 2. You'll be logged in as a demo user
 3. For admin access, use the demo admin account (ID: 987654321)
 
-## Telegram Integration
+## Telegram Web App Integration
 
-### Setting up Telegram Bot
+### 🚀 New Feature: Seamless Telegram Authentication
+
+**Just like the Telegram Wallet app, users can now access your DeFi DApp directly from Telegram without any login process!**
+
+### How It Works
+
+1. **User clicks the Web App button in your Telegram bot**
+2. **Telegram opens your app with user data automatically**
+3. **User is instantly authenticated - no login form needed**
+4. **User can access all DeFi features immediately**
+
+### Setting up Telegram Web App
 
 1. **Create a Telegram Bot**
    - Message [@BotFather](https://t.me/botfather) on Telegram
    - Use `/newbot` command to create a new bot
    - Save the bot token
 
-2. **Configure Web App**
-   - Use `/setmenubutton` to set up the menu button
+2. **Configure Web App Settings**
+   - Use `/mybots` → Select your bot → "Bot Settings" → "Menu Button"
+   - Set the menu button URL to your deployed app URL
    - Use `/setcommands` to set bot commands
 
 3. **Environment Variables**
    Create a `.env` file in the root directory:
    ```env
    REACT_APP_TELEGRAM_BOT_TOKEN=your_bot_token_here
-   REACT_APP_API_URL=http://localhost:3001/api
+   REACT_APP_APP_URL=https://your-app.vercel.app
+   ```
+
+4. **Deploy Your App**
+   - Deploy to Vercel, Netlify, or your preferred hosting service
+   - Update the `APP_URL` in your bot configuration
+
+5. **Start Your Bot**
+   ```bash
+   cd defi-bot
+   npm install
+   node bot.js
    ```
 
 ### Accessing the App
 
-**Option 1: Demo Mode (Recommended for Development)**
+**Option 1: Telegram Web App (Recommended)**
+- Message your bot with `/start`
+- Click "Open DeFi DApp" button
+- App opens in Telegram with automatic authentication
+- No login required - just like the Wallet app!
+
+**Option 2: Demo Mode (Development)**
 - Open the app directly in your browser
 - Click "Demo User" or "Demo Admin" to test all features
 - No Telegram setup required
-
-**Option 2: Full Telegram Integration**
-- Deploy your app to a hosting service (Netlify, Vercel, etc.)
-- Set up your Telegram bot with the deployed URL
-- Access the app through your Telegram bot's menu button
 
 ### Quick Start (Demo Mode)
 
@@ -196,14 +223,14 @@ To connect to a real backend API:
 
 ### For Users
 
-1. **Login/Register**
-   - Open the app from Telegram or use demo mode
-   - Click "Login with Telegram" or "Demo Login"
-   - Complete the authentication process
+1. **Access via Telegram (Recommended)**
+   - Message your bot with `/start`
+   - Click "Open DeFi DApp"
+   - You're automatically logged in - no password needed!
 
 2. **Dashboard**
    - View your account information
-   - See your role and status
+   - See your Telegram profile
    - Access DeFi dashboard for trading and investing
    - Access admin panel (if admin)
 

@@ -5,7 +5,7 @@ const token = '7167895247:AAEFrSwFBaabDoGqicgaMe7Ins77tWgtGXc';
 const bot = new TelegramBot(token, { polling: true });
 
 // Your deployed app URL
-const APP_URL = 'https://your-app-domain.com';
+const APP_URL = 'http://localhost:3000';
 
 // Handle /start command
 bot.onText(/\/start/, (msg) => {

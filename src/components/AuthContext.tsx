@@ -8,6 +8,7 @@ interface AuthContextType extends AuthState {
   register: (telegramUser: TelegramUser) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  autoAuthFromTelegram: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -71,6 +72,29 @@ const initialState: AuthState = {
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const autoAuthFromTelegram = async () => {
+    // Check if we're in Telegram Web App
+    if (!telegramAuth.isTelegramWebApp()) {
+      return;
+    }
+
+    // Get Telegram user data
+    const telegramUser = telegramAuth.getCurrentUser();
+    if (!telegramUser) {
+      console.log('No Telegram user data found');
+      return;
+    }
+
+    // Validate Telegram authentication
+    if (!telegramAuth.validateTelegramAuth(telegramUser)) {
+      console.log('Invalid Telegram authentication data');
+      return;
+    }
+
+    // Auto-authenticate the user
+    await login(telegramUser);
+  };
+
   const login = async (telegramUser: TelegramUser) => {
     dispatch({ type: 'AUTH_START' });
     
@@ -81,6 +105,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         // Store auth token if provided
         if (response.data) {
           localStorage.setItem('authToken', 'demo-token'); // In real app, use actual token
+          localStorage.setItem('telegramUser', JSON.stringify(telegramUser));
         }
         dispatch({ type: 'AUTH_SUCCESS', payload: response.data });
       } else {
@@ -101,6 +126,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         // Store auth token if provided
         if (response.data) {
           localStorage.setItem('authToken', 'demo-token'); // In real app, use actual token
+          localStorage.setItem('telegramUser', JSON.stringify(telegramUser));
         }
         dispatch({ type: 'AUTH_SUCCESS', payload: response.data });
       } else {
@@ -117,6 +143,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('telegramUser');
       dispatch({ type: 'AUTH_LOGOUT' });
     }
   };
@@ -136,10 +164,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         dispatch({ type: 'AUTH_SUCCESS', payload: response.data });
       } else {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('telegramUser');
         dispatch({ type: 'AUTH_LOGOUT' });
       }
     } catch (error) {
       localStorage.removeItem('authToken');
+      localStorage.removeItem('telegramUser');
       dispatch({ type: 'AUTH_LOGOUT' });
     }
   };
@@ -148,8 +178,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     // Initialize Telegram Web App
     telegramAuth.initTelegramApp();
     
-    // Check for existing authentication
-    checkAuth();
+    // Check for existing authentication first
+    checkAuth().then(() => {
+      // If not authenticated, try auto-auth from Telegram
+      if (!state.isAuthenticated) {
+        autoAuthFromTelegram();
+      }
+    });
   }, []);
 
   const value: AuthContextType = {
@@ -158,6 +193,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     register,
     logout,
     checkAuth,
+    autoAuthFromTelegram,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

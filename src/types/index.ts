@@ -20,7 +20,7 @@ export interface User {
   createdAt: Date;
   lastLoginAt: Date;
 }
-
+ 
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;

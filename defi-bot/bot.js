@@ -72,6 +72,26 @@ bot.onText(/\/defi/, (msg) => {
   });
 });
 
+// Handle /dashboard command
+bot.onText(/\/dashboard/, (msg) => {
+  const chatId = msg.chat.id;
+  
+  const keyboard = {
+    inline_keyboard: [
+      [
+        {
+          text: '📊 Open Dashboard',
+          web_app: { url: `${APP_URL}/dashboard` }
+        }
+      ]
+    ]
+  };
+
+  bot.sendMessage(chatId, 'Opening Dashboard...', {
+    reply_markup: keyboard
+  });
+});
+
 // Handle callback queries
 bot.on('callback_query', (query) => {
   const chatId = query.message.chat.id;
@@ -165,12 +185,14 @@ bot.onText(/\/help/, (msg) => {
 
 /start - Start the bot and open DeFi DApp
 /defi - Open DeFi Dashboard directly
+/dashboard - Open main dashboard
 /help - Show this help message
 
 💡 Tips:
 • Use the menu button to quickly access the app
 • Make sure you have MetaMask installed for DeFi features
 • Start with small amounts when trading
+• The app will automatically authenticate you via Telegram
   `;
 
   const keyboard = {
