@@ -1,0 +1,11 @@
+[build]
+  publish = "build"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[build.environment]
+  REACT_APP_TELEGRAM_BOT_TOKEN = "your_bot_token_here" 
