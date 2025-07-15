@@ -6,6 +6,6 @@
     }
   ],
   "env": {
-    "REACT_APP_TELEGRAM_BOT_TOKEN": "your_bot_token_here"
+    "REACT_APP_TELEGRAM_BOT_TOKEN": "7167895247:AAEFrSwFBaabDoGqicgaMe7Ins77tWgtGXc"
   }
 } 
