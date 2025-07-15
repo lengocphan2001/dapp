@@ -46,13 +46,13 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  const handleDemoLogin = async () => {
+  const handleDemoLogin = async (isAdmin: boolean = false) => {
     // Demo user for testing purposes
     const demoUser: TelegramUser = {
-      id: 123456789,
-      first_name: 'Demo',
-      last_name: 'User',
-      username: 'demo_user',
+      id: isAdmin ? 987654321 : 123456789,
+      first_name: isAdmin ? 'Demo' : 'Demo',
+      last_name: isAdmin ? 'Admin' : 'User',
+      username: isAdmin ? 'demo_admin' : 'demo_user',
       photo_url: 'https://via.placeholder.com/150',
       auth_date: Math.floor(Date.now() / 1000),
       hash: 'demo-hash',
@@ -129,9 +129,15 @@ const LoginPage: React.FC = () => {
             </div>
           ) : (
             <>
+              <div className="telegram-notice">
+                <div className="notice-icon">📱</div>
+                <h3>Telegram Required</h3>
+                <p>This app works best when opened from Telegram. However, you can try the demo mode below.</p>
+              </div>
+              
               <button 
-                className="login-button telegram"
-                onClick={() => telegramAuth.showAlert('Please open this app from Telegram to login.')}
+                className="login-button telegram disabled"
+                onClick={() => telegramAuth.showAlert('Please open this app from Telegram for full functionality.')}
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="button-icon">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.27-.48.74-.74 2.87-1.25 4.79-2.09 5.76-2.5 2.7-1.15 3.26-1.36 3.63-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
@@ -140,14 +146,32 @@ const LoginPage: React.FC = () => {
               </button>
               
               <div className="demo-section">
-                <p className="demo-text">Or try the demo:</p>
-                <button 
-                  className="login-button demo"
-                  onClick={handleDemoLogin}
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Processing...' : 'Demo Login'}
-                </button>
+                <div className="demo-header">
+                  <h3>🎮 Demo Mode</h3>
+                  <p>Try the app with demo data</p>
+                </div>
+                <div className="demo-buttons">
+                  <button 
+                    className="login-button demo primary"
+                    onClick={() => handleDemoLogin(false)}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'Processing...' : 'Demo User'}
+                  </button>
+                  <button 
+                    className="login-button demo admin"
+                    onClick={() => handleDemoLogin(true)}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'Processing...' : 'Demo Admin'}
+                  </button>
+                </div>
+                <div className="demo-features">
+                  <span>✅ Full DeFi features</span>
+                  <span>✅ Deposit system</span>
+                  <span>✅ Admin panel (Admin demo)</span>
+                  <span>✅ User management</span>
+                </div>
               </div>
             </>
           )}
@@ -169,7 +193,8 @@ const LoginPage: React.FC = () => {
         </div>
 
         <div className="login-footer">
-          <p>This app requires Telegram to function properly</p>
+          <p>💡 <strong>Tip:</strong> For full Telegram integration, open this app from your Telegram bot</p>
+          <p>🤖 <strong>Bot Setup:</strong> Message your bot and use the menu button to access the app</p>
         </div>
       </div>
     </div>

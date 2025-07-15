@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import DeFiDashboardPage from './pages/DeFiDashboardPage';
+import DepositPage from './pages/DepositPage';
 import AdminPage from './pages/AdminPage';
 import './App.css';
 
@@ -29,6 +30,11 @@ function App() {
               <Route path="/defi" element={
                 <ProtectedRoute>
                   <DeFiDashboardPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/deposit" element={
+                <ProtectedRoute>
+                  <DepositPage />
                 </ProtectedRoute>
               } />
               <Route path="/admin" element={

@@ -105,6 +105,12 @@ const DashboardPage: React.FC = () => {
               </svg>
               DeFi Dashboard
             </button>
+            <button className="action-button primary" onClick={() => navigate('/deposit')}>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11H7v-2h10v2z"/>
+              </svg>
+              Deposit Funds
+            </button>
             <button className="action-button secondary">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>

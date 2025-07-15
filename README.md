@@ -20,6 +20,16 @@ A modern React TypeScript application that provides Telegram authentication and 
 - **Portfolio Tracking**: View your positions, staking, and farming activities
 - **Transaction History**: Complete history of all DeFi transactions
 
+### 💳 Deposit System
+- **Multi-Method Deposits**: Support for crypto and fiat deposits
+- **Fiat On-Ramp**: Credit card, PayPal, and bank transfer options
+- **Crypto Deposits**: Direct ETH, USDC, USDT, and BNB deposits
+- **QR Code Support**: Easy mobile wallet integration
+- **Deposit Limits**: Daily, monthly, and total limit tracking
+- **Transaction History**: Complete deposit history and status tracking
+- **Real-time Quotes**: Instant deposit quotes with fees
+- **Secure Addresses**: Unique deposit addresses for each user
+
 ### 👥 User Management (Admin Panel)
 - **User Overview**: View all registered users with detailed information
 - **Role Management**: Promote/demote users between User and Admin roles
@@ -59,14 +69,17 @@ src/
 │   ├── LoginPage.tsx    # Login/Register page
 │   ├── DashboardPage.tsx # User dashboard
 │   ├── DeFiDashboardPage.tsx # DeFi platform dashboard
+│   ├── DepositPage.tsx  # Deposit funds page
 │   └── AdminPage.tsx    # Admin panel
 ├── services/           # API and external services
 │   ├── api.ts          # Main API service
 │   ├── mockApi.ts      # Mock API for demo
-│   └── defiService.ts  # DeFi blockchain service
+│   ├── defiService.ts  # DeFi blockchain service
+│   └── depositService.ts # Deposit system service
 ├── types/              # TypeScript type definitions
 │   ├── index.ts        # Main type definitions
-│   └── defi.ts         # DeFi-specific type definitions
+│   ├── defi.ts         # DeFi-specific type definitions
+│   └── deposit.ts      # Deposit system type definitions
 ├── utils/              # Utility functions
 │   └── telegramAuth.ts # Telegram authentication utilities
 └── App.tsx             # Main application component
@@ -127,6 +140,37 @@ The application includes a demo mode that allows you to test all features withou
    REACT_APP_TELEGRAM_BOT_TOKEN=your_bot_token_here
    REACT_APP_API_URL=http://localhost:3001/api
    ```
+
+### Accessing the App
+
+**Option 1: Demo Mode (Recommended for Development)**
+- Open the app directly in your browser
+- Click "Demo User" or "Demo Admin" to test all features
+- No Telegram setup required
+
+**Option 2: Full Telegram Integration**
+- Deploy your app to a hosting service (Netlify, Vercel, etc.)
+- Set up your Telegram bot with the deployed URL
+- Access the app through your Telegram bot's menu button
+
+### Quick Start (Demo Mode)
+
+1. **Start the development server**
+   ```bash
+   npm start
+   ```
+
+2. **Open in browser**
+   Navigate to `http://localhost:3000`
+
+3. **Choose demo mode**
+   - Click "Demo User" for regular user experience
+   - Click "Demo Admin" for admin panel access
+
+4. **Test all features**
+   - DeFi dashboard with wallet connection
+   - Deposit system with multiple methods
+   - Admin panel (if using admin demo)
 
 ### Real API Integration
 

@@ -120,15 +120,51 @@
   text-decoration: none;
 }
 
+.telegram-notice {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.notice-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.telegram-notice h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.telegram-notice p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
 .login-button.telegram {
   background: #0088cc;
   color: white;
 }
 
-.login-button.telegram:hover {
+.login-button.telegram:hover:not(.disabled) {
   background: #0077b3;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 136, 204, 0.3);
+}
+
+.login-button.telegram.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  background: #e9ecef;
+  color: #6c757d;
 }
 
 .login-button.demo {
@@ -155,14 +191,81 @@
 
 .demo-section {
   margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
+  padding: 20px;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  background: #f8f9fa;
 }
 
-.demo-text {
-  margin: 0 0 15px 0;
+.demo-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.demo-header h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.demo-header p {
+  margin: 0;
   color: #666;
   font-size: 14px;
+}
+
+.demo-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.demo-buttons .login-button {
+  flex: 1;
+}
+
+.login-button.demo.admin {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  font-weight: 600;
+  padding: 16px 24px;
+  font-size: 16px;
+}
+
+.login-button.demo.admin:hover {
+  background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+}
+
+.demo-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #666;
+}
+
+.demo-features span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.login-button.demo.primary {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  font-weight: 600;
+  padding: 16px 24px;
+  font-size: 16px;
+}
+
+.login-button.demo.primary:hover {
+  background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
 }
 
 .mode-toggle {
@@ -196,6 +299,17 @@
   color: #999;
   font-size: 12px;
   line-height: 1.4;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.login-footer p {
+  margin: 0 0 8px 0;
+}
+
+.login-footer p:last-child {
+  margin-bottom: 0;
 }
 
 .loading-spinner {
