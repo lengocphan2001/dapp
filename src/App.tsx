@@ -8,7 +8,6 @@ import DashboardPage from './pages/DashboardPage';
 import DeFiDashboardPage from './pages/DeFiDashboardPage';
 import DepositPage from './pages/DepositPage';
 import AdminPage from './pages/AdminPage';
-import TestPage from './pages/TestPage';
 import './App.css';
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
         <Router>
           <div className="App">
             <Routes>
-              <Route path="/test" element={<TestPage />} />
               <Route path="/login" element={
                 <ProtectedRoute requireAuth={false}>
                   <LoginPage />
@@ -44,8 +42,16 @@ function App() {
                   <AdminPage />
                 </ProtectedRoute>
               } />
-              <Route path="/" element={<Navigate to="/test" replace />} />
-              <Route path="*" element={<Navigate to="/test" replace />} />
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Navigate to="/dashboard" replace />
+                </ProtectedRoute>
+              } />
+              <Route path="*" element={
+                <ProtectedRoute>
+                  <Navigate to="/dashboard" replace />
+                </ProtectedRoute>
+              } />
             </Routes>
           </div>
         </Router>

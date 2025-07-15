@@ -68,11 +68,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           <div style={{ fontSize: '14px', color: '#999', marginBottom: '10px' }}>
             {error || 'Please open this app from Telegram to continue.'}
           </div>
-          <div style={{ fontSize: '12px', color: '#999', marginBottom: '20px' }}>
-            <a href="/test" style={{ color: '#667eea', textDecoration: 'none' }}>
-              Go to Test Page for Debug
-            </a>
-          </div>
           <button 
             onClick={() => window.location.reload()}
             style={{
