@@ -14,7 +14,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   requireAuth = true,
   requireAdmin = false,
 }) => {
-  const { user, isAuthenticated, isLoading, autoAuthFromTelegram } = useAuth();
+  const { user, isAuthenticated, isLoading, error, autoAuthFromTelegram } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -65,13 +65,18 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           padding: '20px'
         }}>
           <div>🔐 Authentication Required</div>
-          <div style={{ fontSize: '14px', color: '#999' }}>
-            Please open this app from Telegram to continue.
+          <div style={{ fontSize: '14px', color: '#999', marginBottom: '10px' }}>
+            {error || 'Please open this app from Telegram to continue.'}
+          </div>
+          <div style={{ fontSize: '12px', color: '#999', marginBottom: '20px' }}>
+            <a href="/test" style={{ color: '#667eea', textDecoration: 'none' }}>
+              Go to Test Page for Debug
+            </a>
           </div>
           <button 
             onClick={() => window.location.reload()}
             style={{
-              marginTop: '20px',
+              marginTop: '10px',
               padding: '10px 20px',
               backgroundColor: '#667eea',
               color: 'white',

@@ -78,6 +78,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     // Check if we're in Telegram Web App
     if (!telegramAuth.isTelegramWebApp()) {
       console.log('Not in Telegram Web App');
+      dispatch({ type: 'AUTH_FAILURE', payload: 'Not in Telegram Web App' });
       return;
     }
 
@@ -102,6 +103,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     if (!telegramUser) {
       console.log('Failed to get Telegram user data after all attempts');
+      dispatch({ type: 'AUTH_FAILURE', payload: 'No Telegram user data found' });
       return;
     }
 
@@ -110,6 +112,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     // Validate Telegram authentication
     if (!telegramAuth.validateTelegramAuth(telegramUser)) {
       console.log('Invalid Telegram authentication data');
+      dispatch({ type: 'AUTH_FAILURE', payload: 'Invalid Telegram authentication data' });
       return;
     }
 
@@ -203,13 +206,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // Initialize Telegram Web App
       telegramAuth.initTelegramApp();
       
-      // Check for existing authentication first
-      await checkAuth();
+      // Set a timeout to prevent infinite loading
+      const timeoutId = setTimeout(() => {
+        console.log('Authentication timeout - setting loading to false');
+        dispatch({ type: 'AUTH_FAILURE', payload: 'Authentication timeout' });
+      }, 10000); // 10 second timeout
       
-      // If not authenticated and we're in Telegram Web App, try auto-auth
-      if (!state.isAuthenticated && telegramAuth.isTelegramWebApp()) {
-        console.log('Attempting auto-authentication from Telegram...');
-        await autoAuthFromTelegram();
+      try {
+        // Check for existing authentication first
+        await checkAuth();
+        
+        // If not authenticated and we're in Telegram Web App, try auto-auth
+        if (!state.isAuthenticated && telegramAuth.isTelegramWebApp()) {
+          console.log('Attempting auto-authentication from Telegram...');
+          await autoAuthFromTelegram();
+        }
+      } catch (error) {
+        console.error('Authentication initialization error:', error);
+        dispatch({ type: 'AUTH_FAILURE', payload: 'Authentication initialization failed' });
+      } finally {
+        clearTimeout(timeoutId);
       }
     };
 
