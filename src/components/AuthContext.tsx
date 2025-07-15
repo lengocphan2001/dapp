@@ -73,23 +73,47 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const autoAuthFromTelegram = async () => {
+    console.log('autoAuthFromTelegram called');
+    
     // Check if we're in Telegram Web App
     if (!telegramAuth.isTelegramWebApp()) {
+      console.log('Not in Telegram Web App');
       return;
     }
 
-    // Get Telegram user data
-    const telegramUser = telegramAuth.getCurrentUser();
+    console.log('In Telegram Web App, getting user data...');
+
+    // Try to get user data with retries (sometimes there's a delay)
+    let telegramUser = null;
+    let attempts = 0;
+    const maxAttempts = 5;
+
+    while (!telegramUser && attempts < maxAttempts) {
+      attempts++;
+      console.log(`Attempt ${attempts} to get Telegram user data...`);
+      
+      telegramUser = telegramAuth.getCurrentUser();
+      
+      if (!telegramUser) {
+        console.log(`No user data on attempt ${attempts}, waiting...`);
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+      }
+    }
+
     if (!telegramUser) {
-      console.log('No Telegram user data found');
+      console.log('Failed to get Telegram user data after all attempts');
       return;
     }
+
+    console.log('Telegram user data:', telegramUser);
 
     // Validate Telegram authentication
     if (!telegramAuth.validateTelegramAuth(telegramUser)) {
       console.log('Invalid Telegram authentication data');
       return;
     }
+
+    console.log('Telegram authentication validated, proceeding with login...');
 
     // Auto-authenticate the user
     await login(telegramUser);
@@ -175,17 +199,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   useEffect(() => {
-    // Initialize Telegram Web App
-    telegramAuth.initTelegramApp();
-    
-    // Check for existing authentication first
-    checkAuth().then(() => {
-      // If not authenticated, try auto-auth from Telegram
-      if (!state.isAuthenticated) {
-        autoAuthFromTelegram();
+    const initializeAuth = async () => {
+      // Initialize Telegram Web App
+      telegramAuth.initTelegramApp();
+      
+      // Check for existing authentication first
+      await checkAuth();
+      
+      // If not authenticated and we're in Telegram Web App, try auto-auth
+      if (!state.isAuthenticated && telegramAuth.isTelegramWebApp()) {
+        console.log('Attempting auto-authentication from Telegram...');
+        await autoAuthFromTelegram();
       }
-    });
-  }, []);
+    };
+
+    initializeAuth();
+  }, []); // Empty dependency array to run only once
 
   const value: AuthContextType = {
     ...state,

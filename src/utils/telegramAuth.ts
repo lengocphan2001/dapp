@@ -61,9 +61,15 @@ export const telegramAuth = {
 
   // Get user from Telegram Web App
   getUserFromTelegramApp: (): TelegramUser | null => {
+    console.log('getUserFromTelegramApp called');
+    console.log('window.Telegram?.WebApp:', window.Telegram?.WebApp);
+    console.log('window.Telegram?.WebApp?.initDataUnsafe?.user:', window.Telegram?.WebApp?.initDataUnsafe?.user);
+    
     if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
       const tgUser = window.Telegram.WebApp.initDataUnsafe.user;
-      return {
+      console.log('Found Telegram user:', tgUser);
+      
+      const telegramUser: TelegramUser = {
         id: tgUser.id,
         first_name: tgUser.first_name,
         last_name: tgUser.last_name,
@@ -72,13 +78,21 @@ export const telegramAuth = {
         auth_date: Math.floor(Date.now() / 1000),
         hash: window.Telegram.WebApp.initData || '',
       };
+      
+      console.log('Created TelegramUser object:', telegramUser);
+      return telegramUser;
     }
+    
+    console.log('No Telegram user data found in WebApp');
     return null;
   },
 
   // Check if running in Telegram Web App
   isTelegramWebApp: (): boolean => {
-    return !!window.Telegram?.WebApp;
+    const isWebApp = !!window.Telegram?.WebApp;
+    console.log('isTelegramWebApp check:', isWebApp);
+    console.log('window.Telegram:', window.Telegram);
+    return isWebApp;
   },
 
   // Show Telegram alert
